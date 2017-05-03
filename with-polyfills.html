@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ShadyDOM breaks AngularJS directives :(</title>
+    <script>
+        // force ShadyDOM even in browsers which support ShadowDOM natively
+        window.ShadyDOM = { force: true };
+    </script>
+    <script src="lib/webcomponents-lite.js"></script>
+    <script src="lib/angular.js"></script>
+    <script src="app.js"></script>
+</head>
+<body ng-app="demo-app">
+    <h1>With ShadyDOM polyfill</h1>
+    <hr />
+    <div>
+        <my-directive></my-directive>
+    </div>
+    <div style="color: #777; max-width: 500px;">
+        <span style="color: #c00;">Check the developer tools to see the error.</span><br />
+        <br />
+        Want to know why the error exists?<br />
+        <br />
+        Put a breakpoint on <code>lib/angular.js:2744</code><br />
+        <br />
+        Setting <code>fragment.textContent = ""</code> should empty the fragment,
+        but when the polyfill is present, it leaves an empty <code>&lt;div&gt;</code> node
+        which is being appended to by the directive template, meaning that angular thinks
+        there are <strong>TWO</strong> root nodes to the directive and complains.
+        <br />
+        When the ShadyDOM polyfill is not loaded, this does not happen.
+    </div>
+    <hr />
+    <nav>
+        <a href="without-polyfills.html">Reload this page <strong>without</strong> the ShadyDOM polyfill.</a>
+    </nav>
+</body>
+</html>

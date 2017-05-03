@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ShadyDOM breaks AngularJS directives :(</title>
+    <script src="lib/angular.js"></script>
+    <script src="app.js"></script>
+</head>
+<body ng-app="demo-app">
+    <h1>Without ShadyDOM polyfill</h1>
+    <hr />
+    <div>
+        <my-directive></my-directive>
+    </div>
+    <hr />
+    <nav>
+        <a href="with-polyfills.html">Reload this page <strong>with</strong> the ShadyDOM polyfill.</a>
+    </nav>
+</body>
+</html>
